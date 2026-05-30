@@ -1,0 +1,20 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Read-only curriculum documents accessible to all authenticated sessions or students
+    match /curriculum/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Students can read/write their own profile
+    match /students/{studentId} {
+      allow read, write: if request.auth != null && request.auth.uid == studentId;
+    }
+
+    // Students can read/write their own progress records
+    match /progress/{studentId} {
+      allow read, write: if request.auth != null && request.auth.uid == studentId;
+    }
+  }
+}
