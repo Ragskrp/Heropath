@@ -101,7 +101,7 @@ export async function POST(request: Request) {
         theme: gender === "boy" ? "marvel" : "princess",
         avatarId,
         yearGroup,
-        gcseExamDate: yearGroup >= 10 ? gcseExamDate : undefined,
+        ...(yearGroup >= 10 && gcseExamDate ? { gcseExamDate } : {}),
         xp: 0,
         level: 1,
         streak: 0,

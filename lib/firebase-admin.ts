@@ -1,5 +1,7 @@
 import * as admin from "firebase-admin";
 
+let adminDb: admin.firestore.Firestore | undefined;
+
 function getFirebaseAdminApp() {
   if (admin.apps.length) {
     return admin.app();
@@ -25,7 +27,12 @@ function getFirebaseAdminApp() {
 }
 
 export function getAdminDb() {
-  return getFirebaseAdminApp().firestore();
+  if (!adminDb) {
+    adminDb = getFirebaseAdminApp().firestore();
+    adminDb.settings({ ignoreUndefinedProperties: true });
+  }
+
+  return adminDb;
 }
 
 export function getAdminAuth() {
