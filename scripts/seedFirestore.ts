@@ -1,4 +1,4 @@
-import { adminDb } from "../lib/firebase-admin";
+import { getAdminDb } from "../lib/firebase-admin";
 import { Subject } from "../types/curriculum";
 
 const sampleCurriculum: Subject[] = [
@@ -145,6 +145,7 @@ const sampleCurriculum: Subject[] = [
 ];
 
 export async function seed() {
+  const adminDb = getAdminDb();
   const batch = adminDb.batch();
   for (const subject of sampleCurriculum) {
     const docRef = adminDb.collection("curriculum").doc(subject.id);

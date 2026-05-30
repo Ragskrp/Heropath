@@ -1,15 +1,18 @@
 import { NextResponse } from "next/server";
-import { adminDb } from "@/lib/firebase-admin";
+import { getAdminDb } from "@/lib/firebase-admin";
 import { setSessionCookie } from "@/lib/session";
 import { LoginSchema, RegisterSchema } from "@/lib/validators";
 import { StudentProfile } from "@/types/auth";
 import { StudentProgress } from "@/types/progress";
 import bcrypt from "bcrypt";
 
+export const runtime = "nodejs";
+
 const BCRYPT_SALT_ROUNDS = 10;
 
 export async function POST(request: Request) {
   try {
+    const adminDb = getAdminDb();
     const body = await request.json();
     const { action } = body;
 
