@@ -20,6 +20,51 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Gemini Curriculum Generation
+
+HeroPath can generate richer curriculum data with Gemini and upload it to Firestore.
+
+1. Create a Gemini API key in Google AI Studio:
+
+https://aistudio.google.com/app/apikey
+
+2. Add the key to `.env.local`:
+
+```bash
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-2.5-flash
+```
+
+3. Generate curriculum JSON:
+
+```bash
+npm run curriculum:generate
+```
+
+This writes `data/curriculum.generated.json`, which is ignored by Git.
+
+4. Upload the generated curriculum to Firestore:
+
+```bash
+npm run curriculum:seed
+```
+
+The seed step needs `FIREBASE_SERVICE_ACCOUNT_KEY_B64` in `.env.local` or your shell environment.
+
+Optional settings:
+
+```bash
+GEMINI_MODEL=gemini-2.5-flash
+CURRICULUM_SUBJECTS="Mathematics KS3|Science KS3|GCSE Mathematics KS4"
+CURRICULUM_OUTPUT=data/curriculum.generated.json
+```
+
+To generate and upload in one command:
+
+```bash
+npm run curriculum:refresh
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

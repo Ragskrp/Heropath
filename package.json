@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "curriculum:generate": "node scripts/generateCurriculum.mjs",
+    "curriculum:seed": "node scripts/uploadCurriculum.mjs",
+    "curriculum:refresh": "npm run curriculum:generate && npm run curriculum:seed"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
